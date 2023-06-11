@@ -1,0 +1,73 @@
+main = """
+
+OPERAÇÕES:
+
+Para DEPOSITAR pressione a tecla "A"
+Para SACAR pressione a tecla "B"
+Para EXTRATO pressione a tecla "E"
+Para SAIR pressione a tecla "S"
+
+"""
+
+balance = 0
+limit = 500
+extract = ""
+number_with = 0
+lim_with = 3
+
+while True:
+
+# OPERAÇÃO DEPÓSITO
+
+    option = input(main)
+    if option == "A":
+        value = float(input("Informe o valor a depositar: "))
+        if value > 0: 
+            balance += value
+            extract += f"Depósito de: R$ {value:.2f}\n"
+            print(f"Você depositou: R$ {value:.2f}")
+        else: print("Sua operação falhou.")
+
+# OPERAÇÃO SAQUE
+
+    elif option == "B":
+        value = float(input("Informe o valor do saque: "))
+
+        balance_exceeded = value > balance
+
+        limit_exceeded = value > 500 
+
+        with_exceeded = number_with >= lim_with
+
+        if balance_exceeded:
+            print("Você não possui saldo suficiente")
+
+        elif limit_exceeded:
+            print("Você não pode sacar mais que R$ 500,00")
+        
+        elif with_exceeded:
+            print("Você ultrapassou o número de saques")
+
+        elif value <= balance:
+            balance -= value
+            extract += f"Saque de: R$ {value:.2f}\n"
+            number_with += 1 
+            print(f"Você sacou: R$ {value:.2f}")
+        else: print("Digite um valor válido")
+
+
+# OPERAÇÃO EXTRATO
+
+    elif option == "E":
+        if not extract:
+            print("Não foram realizadas transações bancárias")
+        else:
+            print(extract)
+            print(f"\nSaldo da conta: {balance:.2f}")       
+
+# SAIR 
+    elif option == "S":
+        break
+
+    else:
+        print("Selecione uma operação válida")
